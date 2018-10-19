@@ -4,3 +4,4 @@
 !makefile
 *.out
 CMakeFiles
+./vscode/.browse.*
