@@ -4,7 +4,7 @@
 #include "signal_reader.h"
 #include "baudot_code.h"
 
-class BaudotReader : SignalReader
+class BaudotReader : public SignalReader
 {
 private:
     enum class State
@@ -16,15 +16,13 @@ private:
     };
 
 public:
-    typedef void (*CharCallback)(char);
-
-public:
     BaudotReader(uint8_t pin, 
         float baudRate, 
-        CharCallback callback, 
         bool reverse = false);
 
 private:
+    virtual void processChar(char chr) = 0;
+
     void processBits(bool high, float numBits) final;
 
 private:
@@ -45,8 +43,6 @@ private:
     int m_numBits;
 
     BaudotCode m_baudot;
-
-    const CharCallback m_callback;
 
 };
 

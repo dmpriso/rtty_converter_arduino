@@ -3,10 +3,8 @@
 
 BaudotReader::BaudotReader(uint8_t pin, 
     float baudRate, 
-    CharCallback callback, 
     bool reverse)
     : SignalReader(pin, baudRate, reverse)
-    , m_callback(callback)
 {}
 
 bool BaudotReader::tryChangeState(State oldState, State newState)
@@ -55,7 +53,7 @@ void BaudotReader::processCurrentChar()
     if (chr != 0)
     {
         DEBUGPRINT("Processed char: " << chr);
-        m_callback(chr);
+        processChar(chr);
     }
 }
 

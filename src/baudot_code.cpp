@@ -3,10 +3,10 @@
 
 void BaudotCode::reset()
 {
-	m_numbermode = false;
+	m_numberMode = false;
 }
 
-bool BaudotCode::handleControlChar(char chr)
+char BaudotCode::handleControlChar(char chr)
 {
 	if (m_numberMode && chr == 'a')
 	{
@@ -40,14 +40,14 @@ char BaudotCode::baudotToChar(unsigned char byt)
 static int find(const char* ary, char chr)
 {
 	for (int i = 0; i < 32; i++)
-		if (ary[i] == findChar)
+		if (ary[i] == chr)
 			return i;
 	return -1;
 }
 
 int BaudotCode::findChar(char chr)
 {
-	return find(s_chartable, chr)
+	return find(s_chartable, chr);
 }
 
 int BaudotCode::findNumber(char chr)
@@ -59,14 +59,15 @@ unsigned char BaudotCode::charToBaudot(char chr, unsigned char& switchCode)
 {
 	if (chr == 0)
 		chr = '#';
-		
-	if (int id = findChar(chr); -1 != id)
+	
+	int id;
+	if (-1 != (id = findChar(chr)))
 	{
 		switchCode = setNumbermode(false);
 		return (unsigned char)id;
 	}
 
-	if (int id = findNumber(chr); -1 != id)
+	if (-1 != (id = findNumber(chr)))
 	{
 		switchCode = setNumbermode(true);
 		return (unsigned char)id;

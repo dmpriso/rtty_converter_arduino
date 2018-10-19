@@ -24,8 +24,8 @@ private:
 
 	unsigned char setNumbermode(bool numberMode);
 	
-	static int findChar(const char* ary, char chr);
-	static int findNumber(const char* ary, char chr);
+	static int findChar(char chr);
+	static int findNumber(char chr);
 
 	static constexpr const char* s_chartable = "#E\rA SIU\nDRJNFCKTZLWHYPQOBG%MXVa";
 	static constexpr const char* s_numtable  = "#3\r- '87\n#4',#:(5+)2#6019?#%./=a";

@@ -1,9 +1,16 @@
 #include <Arduino.h>
 
-void setup() {
-    // put your setup code here, to run once:
+#include "baudot_repeater.h"
+
+BaudotRepeater<64> repeater1(2, 45.45f, 3, 50.f);
+BaudotRepeater<64> repeater2(4, 50.f, 5, 45.45f);
+
+void setup() 
+{
 }
 
-void loop() {
-    // put your main code here, to run repeatedly:
+void loop() 
+{
+    repeater1.loop();
+    repeater2.loop();
 }

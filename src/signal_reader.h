@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "UsTimestamp.h"
+#include "us_timestamp.h"
 
 class SignalReader
 {

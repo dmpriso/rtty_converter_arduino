@@ -4,7 +4,9 @@ SignalReader::SignalReader(uint8_t pin, float baudRate, bool reverse)
     : m_pin(pin)
     , m_highValue(reverse ? LOW : HIGH)
     , m_baudRate(baudRate)
-{}
+{
+    pinMode(pin, INPUT);
+}
 
 bool SignalReader::read()
 {

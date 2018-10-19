@@ -4,4 +4,5 @@
 !makefile
 *.out
 CMakeFiles
-./vscode/.browse.*
+.vscode/
+.pioenvs/
