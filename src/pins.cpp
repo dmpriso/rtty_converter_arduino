@@ -1,21 +1,21 @@
 #include "pins.h"
 
-ReversablePin::ReversablePin(bool reverse)
-    : m_reverse(reverse)
+InvertablePin::InvertablePin(bool invert)
+    : m_inverted(invert)
 {}
 
-void ReversablePin::Reverse(bool reverse)
+void InvertablePin::Inverted(bool invert)
 {
-    m_reverse = reverse;
+    m_inverted = invert;
 }
 
-bool ReversablePin::Reverse() const
+bool InvertablePin::Inverted() const
 {
-    return m_reverse;
+    return m_inverted;
 }
 
 HardwareInputPin::HardwareInputPin(uint8_t pin, bool pullUp, bool reverse)
-    : ReversablePin(reverse)
+    : InvertablePin(reverse)
     , m_pin(pin)
 {
     pinMode(pin, pullUp ? INPUT_PULLUP : INPUT);
@@ -23,11 +23,11 @@ HardwareInputPin::HardwareInputPin(uint8_t pin, bool pullUp, bool reverse)
 
 bool HardwareInputPin::read() const
 {
-    return digitalRead(m_pin) == (Reverse() ? LOW : HIGH);
+    return digitalRead(m_pin) == (Inverted() ? LOW : HIGH);
 }
 
 HardwareOutputPin::HardwareOutputPin(uint8_t pin, bool reverse)
-    : ReversablePin(reverse)
+    : InvertablePin(reverse)
     , m_pin(pin)
 {
     pinMode(pin, OUTPUT);
@@ -35,5 +35,5 @@ HardwareOutputPin::HardwareOutputPin(uint8_t pin, bool reverse)
 
 void HardwareOutputPin::write(bool value)
 {
-    digitalWrite(m_pin, (value ^ Reverse()) ? HIGH : LOW);
+    digitalWrite(m_pin, (value ^ Inverted()) ? HIGH : LOW);
 }

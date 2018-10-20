@@ -15,19 +15,19 @@ public:
     virtual void write(bool value) = 0;
 };
 
-class ReversablePin
+class InvertablePin
 {
 public:
-    ReversablePin(bool reverse = false);
+    InvertablePin(bool invert = false);
 public:
-    void Reverse(bool reverse);
-    bool Reverse() const;
+    void Inverted(bool invert);
+    bool Inverted() const;
 
 private:
-    bool m_reverse = false;
+    bool m_inverted = false;
 };
 
-class HardwareInputPin : public InputPin, public ReversablePin
+class HardwareInputPin : public InputPin, public InvertablePin
 {
 public:
     HardwareInputPin(uint8_t pin, bool pullUp = false, bool reverse = false);
@@ -37,7 +37,7 @@ private:
     const uint8_t m_pin;
 };
 
-class HardwareOutputPin : public OutputPin, public ReversablePin
+class HardwareOutputPin : public OutputPin, public InvertablePin
 {
 public:
     HardwareOutputPin(uint8_t pin, bool reverse = false);
