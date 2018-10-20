@@ -11,6 +11,11 @@ char ReadableBaudotReader::read()
     return tmp;
 }
 
+bool ReadableBaudotReader::hasData() const
+{
+    return 0 != m_chr;
+}
+
 void ReadableBaudotReader::processChar(char chr)
 {
     m_chr = chr;

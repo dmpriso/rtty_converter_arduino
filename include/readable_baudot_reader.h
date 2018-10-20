@@ -6,12 +6,11 @@
 class ReadableBaudotReader : public BaudotReader
 {
 public:
-    ReadableBaudotReader(
-        const InputPin& pin,
-        float baudRate);
+    ReadableBaudotReader(const InputPin& pin, float baudRate);
 
 public:
     char read();
+    bool hasData() const;
 
 private:
     void processChar(char chr) final;

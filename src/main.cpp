@@ -1,3 +1,5 @@
+#ifndef UNIT_TEST
+
 #include <Arduino.h>
 
 #include "baudot_repeater.h"
@@ -33,3 +35,5 @@ void loop()
     repeater1.loop();
     repeater2.loop();
 }
+
+#endif
