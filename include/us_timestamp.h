@@ -1,5 +1,5 @@
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef US_TIMESTAMP_H
+#define US_TIMESTAMP_H
 
 #include <Arduino.h>
 

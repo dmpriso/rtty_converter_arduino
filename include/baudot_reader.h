@@ -35,6 +35,7 @@ private:
     void processBit(bool high);
 
     void processCurrentChar();
+    static const char* getStateName(State state);
 
 private:
     State m_state;

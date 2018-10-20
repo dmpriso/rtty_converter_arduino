@@ -1,5 +1,5 @@
 #include "baudot_code.h"
-#include "debug.h"
+#include "debug_print.h"
 
 void BaudotCode::reset()
 {

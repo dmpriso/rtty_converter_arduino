@@ -1,5 +1,5 @@
 #include "baudot_reader.h"
-#include "debug.h"
+#include "debug_print.h"
 
 BaudotReader::BaudotReader(uint8_t pin, 
     float baudRate, 
@@ -7,12 +7,29 @@ BaudotReader::BaudotReader(uint8_t pin,
     : SignalReader(pin, baudRate, reverse)
 {}
 
+const char* BaudotReader::getStateName(State state)
+{
+    switch(state)
+    {
+    case State::AwaitingSynchronizable:
+        return "AwaitingSyncronizable";
+    case State::AwaitingStartBit:
+        return "AwaitingStartBit";
+    case State::InChar:
+        return "InChar";
+    case State::AwaitingStopBit:
+        return "AwaitingStopBit";
+    default:
+        return "UNKNOWN";
+    }
+}
+
 bool BaudotReader::tryChangeState(State oldState, State newState)
 {
     if (m_state != oldState)
         return false;
 
-    DEBUGPRINT("Changing state from " << oldstate << " to " << newstate);
+    DEBUGPRINT("Changing state from " << getStateName(oldState) << " to " << getStateName(newState));
     m_state = newState;
     return true;
 }
