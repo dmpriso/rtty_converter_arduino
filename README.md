@@ -1,6 +1,9 @@
-# RTTY baud rate converter for arduino instead of raspberry
+# RTTY baud rate converter for Arduino
 
-## Converters:
+## Hardware
+Tested with Arduino Nano (AtMega 328)
+
+## Converters
 
 Converter 1: Converts 45.45 baud to 50 baud
 Converter 2: Converts 50 baud to 45.45 baud
