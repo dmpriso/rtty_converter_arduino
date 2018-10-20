@@ -1,10 +1,10 @@
 #include "baudot_reader.h"
 #include "debug_print.h"
 
-BaudotReader::BaudotReader(uint8_t pin, 
-    float baudRate, 
-    bool reverse)
-    : SignalReader(pin, baudRate, reverse)
+BaudotReader::BaudotReader(
+    const InputPin& pin, 
+    float baudRate)
+    : SignalReader(pin, baudRate)
 {}
 
 const char* BaudotReader::getStateName(State state)

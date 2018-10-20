@@ -20,8 +20,19 @@ void testUsTimestamp()
 
     TEST_ASSERT_EQUAL_INT32_MESSAGE(us3 - us1, 1, "1us in the future");
     TEST_ASSERT_EQUAL_INT32_MESSAGE(us1 - us3, -1, "-1us in the future");
-
+    
     UsTimestamp us4 = us3;
+
+    TEST_ASSERT_MESSAGE(us2 > us1, "checking >");
+    TEST_ASSERT_MESSAGE(us2 >= us1, "checking >=");
+    TEST_ASSERT_MESSAGE(us1 < us2, "checking <");
+    TEST_ASSERT_MESSAGE(us1 <= us2, "checking <=");
+    TEST_ASSERT_MESSAGE(us1 != us2, "checking !=");
+    TEST_ASSERT_MESSAGE(!(us3 > us4), "checking > (2)");
+    TEST_ASSERT_MESSAGE(!(us3 < us4), "checking < (2)");
+    TEST_ASSERT_MESSAGE(us3 >= us4, "checking >= (2)");
+    TEST_ASSERT_MESSAGE(us3 <= us4, "checking <= (2)");
+    TEST_ASSERT_MESSAGE(us3 == us4, "checking ==");
 }
 
 void setup()

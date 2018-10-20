@@ -1,7 +1,7 @@
 #ifndef DEBUGPRINT_H
 #define DEBUGPRINT_H
 
-#define DEBUG_SERIAL Serial
+//#define DEBUG_SERIAL Serial
 
 #ifdef DEBUG_SERIAL
 

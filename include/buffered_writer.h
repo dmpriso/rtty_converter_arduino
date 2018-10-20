@@ -8,10 +8,9 @@ class BufferedWriter : public BaudotWriter
 {
 public:
     BufferedWriter(
-        uint8_t pin, 
+        OutputPin& pin, 
         float baudRate, 
-        float stopBitLength = 1.5f,
-        bool reverse = false);
+        float stopBitLength = 2.f);
 
 public:
     void write(char chr);
@@ -31,11 +30,10 @@ private:
 
 template<int Size>
 BufferedWriter<Size>::BufferedWriter(
-        uint8_t pin, 
+        OutputPin& pin, 
         float baudRate, 
-        float stopBitLength,
-        bool reverse)
-    : BaudotWriter(pin, baudRate, stopBitLength, reverse)
+        float stopBitLength)
+    : BaudotWriter(pin, baudRate, stopBitLength)
 {
     static_assert(Size >= 2, "Queue size must at least be 2");
 }
@@ -46,7 +44,8 @@ char BufferedWriter<Size>::getNextChar()
     if (m_readPos == m_writePos)
         return 0;
 
-    return m_buf[getAndAdvancePos(m_readPos)];
+    auto chr = m_buf[getAndAdvancePos(m_readPos)];
+    return chr;
 }
 
 template<int Size>

@@ -1,12 +1,11 @@
 #include "baudot_writer.h"
 
 BaudotWriter::BaudotWriter(
-    uint8_t pin, 
+    OutputPin& pin, 
     float baudRate, 
-    float stopBitLength,
-    bool reverse
+    float stopBitLength
     )
-    : SignalWriter(pin, baudRate, reverse)
+    : SignalWriter(pin, baudRate)
     , m_stopBitLength(stopBitLength)
 {}
 
@@ -25,6 +24,7 @@ void BaudotWriter::setWithStartBit(unsigned char send)
 {
     // add start bit
     m_curSend = (send << 1) & ~1;
+    m_bitsSent = 0;
 }
 
 void BaudotWriter::setNextSend()
@@ -50,7 +50,7 @@ bool BaudotWriter::getNextSignal(float& durationInBits)
         durationInBits = 1;
         return 0 != (m_curSend & (1 << m_bitsSent++));
     }
-    else if (m_bitsSent == 6)
+    else
     {
         setNextSend();
         durationInBits = m_stopBitLength;

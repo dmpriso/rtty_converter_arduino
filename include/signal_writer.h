@@ -3,11 +3,12 @@
 
 #include <Arduino.h>
 #include "us_timestamp.h"
+#include "pins.h"
 
 class SignalWriter
 {
 public:
-    SignalWriter(uint8_t pin, float baudRate, bool reverse = false);
+    SignalWriter(OutputPin& pin, float baudRate);
 
 public:
     void loop();
@@ -19,15 +20,18 @@ private:
 
 private:
     bool checkIfNext();
-    void write(bool signal);
     float getDurationInUs(float durationInBits);
 
+    void calcMaxJitterCorrection();
+    int32_t getMaxJitterCorrection(int32_t diffUs);
+
 private:
-    const uint8_t m_pin;
+    OutputPin& m_pin;
     const float m_baudRate;
-    const bool m_reverse;
 
     UsTimestamp m_upTo;
+
+    int32_t m_maxJitterCorrection;
 };
 
 #endif

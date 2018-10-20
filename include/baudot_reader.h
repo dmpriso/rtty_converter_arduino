@@ -16,9 +16,8 @@ private:
     };
 
 public:
-    BaudotReader(uint8_t pin, 
-        float baudRate, 
-        bool reverse = false);
+    BaudotReader(const InputPin& pin, 
+        float baudRate);
 
 private:
     virtual void processChar(char chr) = 0;

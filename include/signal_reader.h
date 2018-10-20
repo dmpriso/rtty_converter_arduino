@@ -1,12 +1,16 @@
+#ifndef SIGNALREADER_H
+#define SIGNALREADER_H
+
 #include <Arduino.h>
 #include "us_timestamp.h"
+
+#include "pins.h"
 
 class SignalReader
 {
 public:
-    SignalReader(uint8_t pin, float baudRate, bool reverse = false);
+    SignalReader(const InputPin& pin, float baudRate);
 
-    bool read();
     void loop();
     float updateAndGetTimeSeconds();
 
@@ -14,10 +18,11 @@ private:
     virtual void processBits(bool high, float numBits) = 0;
 
 private:
-    const uint8_t m_pin;
-    const int m_highValue;
+    const InputPin& m_pin;
     const float m_baudRate;
 
     bool m_lastValue = false;
     UsTimestamp m_lastChangeUs;
 };
+
+#endif

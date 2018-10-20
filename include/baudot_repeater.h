@@ -11,12 +11,11 @@ class BaudotRepeater
 {
 public:
     BaudotRepeater(
-        uint8_t inputPin,
+        const InputPin& inputPin,
         float inputBaudRate,
-        uint8_t outputPin,
+        OutputPin& outputPin,
         float outputBaudRate,
-        bool reverseInput = false,
-        bool reverseOutput = false
+        float stopBitLength = 2.f
     );
 
 public:
@@ -29,15 +28,14 @@ private:
 
 template<int Size>
 BaudotRepeater<Size>::BaudotRepeater(
-        uint8_t inputPin,
+        const InputPin& inputPin,
         float inputBaudRate,
-        uint8_t outputPin,
+        OutputPin& outputPin,
         float outputBaudRate,
-        bool reverseInput,
-        bool reverseOutput
+        float stopBitLength
     )
-    : BaudotReader(inputPin, inputBaudRate, reverseInput)
-    , BufferedWriter<Size>(outputPin, outputBaudRate, reverseOutput)
+    : BaudotReader(inputPin, inputBaudRate)
+    , BufferedWriter<Size>(outputPin, outputBaudRate, stopBitLength)
 {}
 
 template<int Size>

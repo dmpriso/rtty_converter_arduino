@@ -8,7 +8,7 @@ UsTimestamp UsTimestamp::operator+(int32_t val)
     else
         ret.value -= static_cast<uint32_t>(-val);
 
-    return *this;
+    return ret;
 }
 
 int32_t UsTimestamp::operator-(const UsTimestamp& diff)

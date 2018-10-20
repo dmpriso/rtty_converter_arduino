@@ -6,7 +6,7 @@
 class InputPin
 {
 public:
-    virtual bool read() = 0;
+    virtual bool read() const = 0;
 };
 
 class OutputPin
@@ -15,18 +15,29 @@ public:
     virtual void write(bool value) = 0;
 };
 
-class HardwareInputPin : public InputPin
+class ReversablePin
 {
 public:
-    HardwareInputPin(uint8_t pin, bool reverse = false);
+    ReversablePin(bool reverse = false);
 public:
-    bool read() final;
+    void Reverse(bool reverse);
+    bool Reverse() const;
+
 private:
-    const uint8_t m_pin;
-    const bool m_reverse;
+    bool m_reverse = false;
 };
 
-class HardwareOutputPin : public OutputPin
+class HardwareInputPin : public InputPin, public ReversablePin
+{
+public:
+    HardwareInputPin(uint8_t pin, bool pullUp = false, bool reverse = false);
+public:
+    bool read() const final;
+private:
+    const uint8_t m_pin;
+};
+
+class HardwareOutputPin : public OutputPin, public ReversablePin
 {
 public:
     HardwareOutputPin(uint8_t pin, bool reverse = false);
@@ -34,7 +45,6 @@ public:
     void write(bool value) final;
 private:
     const uint8_t m_pin;
-    const bool m_reverse;
 };
 
 #endif

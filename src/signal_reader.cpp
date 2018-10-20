@@ -1,17 +1,9 @@
 #include "signal_reader.h"
 
-SignalReader::SignalReader(uint8_t pin, float baudRate, bool reverse)
+SignalReader::SignalReader(const InputPin& pin, float baudRate)
     : m_pin(pin)
-    , m_highValue(reverse ? LOW : HIGH)
     , m_baudRate(baudRate)
-{
-    pinMode(pin, INPUT);
-}
-
-bool SignalReader::read()
-{
-    return digitalRead(m_pin) == m_highValue;
-}
+{}
 
 float SignalReader::updateAndGetTimeSeconds()
 {
@@ -19,12 +11,12 @@ float SignalReader::updateAndGetTimeSeconds()
     auto diffUs = now - m_lastChangeUs;
     m_lastChangeUs = now;
 
-    return static_cast<float>(diffUs) / 1,000,000.f;
+    return static_cast<float>(diffUs) / 1000000.f;
 }
 
 void SignalReader::loop()
 {
-    auto current = read();
+    auto current = m_pin.read();
     if (current == m_lastValue)
         return;
 
@@ -32,5 +24,5 @@ void SignalReader::loop()
     auto time = updateAndGetTimeSeconds();
     auto bits = time * m_baudRate;
 
-    processBits(current, bits);
+    processBits(!current, bits);
 }

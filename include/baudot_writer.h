@@ -8,10 +8,9 @@ class BaudotWriter : public SignalWriter
 {
 public:
     BaudotWriter(
-        uint8_t pin, 
+        OutputPin& pin, 
         float baudRate, 
-        float stopBitLength = 1.5f,
-        bool reverse = false);
+        float stopBitLength = 1.5f);
 
 private:
     virtual char getNextChar() = 0;
