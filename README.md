@@ -3,6 +3,11 @@
 ## Hardware
 Tested with Arduino Nano (AtMega 328)
 
+## Building
+Use VS Code & PlatformIO. For executing unit tests, you will need PIO Pro. A 30 days trial version is available.
+
+For building and deploying, the free community edition is sufficient.
+
 ## Converters
 
 Converter 1: Converts 45.45 baud to 50 baud
