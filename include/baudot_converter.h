@@ -1,16 +1,16 @@
-#ifndef BAUDOTREPEATER_H
-#define BAUDOTREPEATER_H
+#ifndef BAUDOTCONVERTER_H
+#define BAUDOTCONVERTER_H
 
 #include "baudot_reader.h"
 #include "buffered_writer.h"
 
 template<int Size>
-class BaudotRepeater
+class BaudotConverter
     : protected BaudotReader
     , protected BufferedWriter<Size>
 {
 public:
-    BaudotRepeater(
+    BaudotConverter(
         const InputPin& inputPin,
         float inputBaudRate,
         OutputPin& outputPin,
@@ -21,13 +21,18 @@ public:
 public:
     void loop();
 
+    inline uint32_t lastCharTime() const { return m_lastCharTime; }
+    inline bool isActive() const { return m_hadChar && millis() - m_lastCharTime < 1000; }
+
 private:
     void processChar(char chr) final;
 
+    uint32_t m_lastCharTime = 0;
+    bool m_hadChar = false;
 };
 
 template<int Size>
-BaudotRepeater<Size>::BaudotRepeater(
+BaudotConverter<Size>::BaudotConverter(
         const InputPin& inputPin,
         float inputBaudRate,
         OutputPin& outputPin,
@@ -39,16 +44,18 @@ BaudotRepeater<Size>::BaudotRepeater(
 {}
 
 template<int Size>
-void BaudotRepeater<Size>::loop()
+void BaudotConverter<Size>::loop()
 {
     BaudotReader::loop();
-    BaudotRepeater::loop();
+    BufferedWriter<Size>::loop();
 }
 
 template<int Size>
-void BaudotRepeater<Size>::processChar(char chr)
+void BaudotConverter<Size>::processChar(char chr)
 {
     BufferedWriter<Size>::write(chr);
+    m_hadChar = true;
+    m_lastCharTime = millis();
 }
 
 #endif
