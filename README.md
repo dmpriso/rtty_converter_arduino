@@ -24,12 +24,13 @@ Input pins configured as pull-down.
 **D5**: Converter 2 45.45 baud output (converted from 50 baud)<br>
 
 ### Configuration pins
-Configured as pull-up. Set to ground to activate inverting
+Configured as pull-up. Set to ground to activate appropriate function
 
 **D6**: Invert 45.45 baud input (D2)<br>
 **D7**: Invert 50 baud input (D3)<br>
 **D8**: Invert 50 baud output (D4)<br>
 **D9**: Invert 45.45 baud output (D5)<br>
+**D10**: Autocomplete CRLR<br>
 
 ## LED Indicator
 The Arduino LED labeled **L** (also connected to D13) indicates the state of the converters.
